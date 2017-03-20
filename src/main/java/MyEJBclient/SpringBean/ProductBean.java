@@ -1,11 +1,18 @@
 package MyEJBclient.SpringBean;
 
-import javax.ejb.EJB;
+import MyEJBclient.connector.RemoteEJBClient;
+import com.ncproject.webstore.ejb.CartBeanInterface;
+
+import javax.naming.NamingException;
 
 /**
  * Created by secret on 17.03.2017.
  */
 public final class ProductBean {
-    @EJB(mappedName="ejb:/webstore//CartBean!com.ncproject.webstore.ejb.CartBeanInterface?stateful")
-    ProductBean exampleEJB;
+
+    private CartBeanInterface cartBeanInterface;
+
+    public CartBeanInterface getCartBeanInterface() {
+        return cartBeanInterface;
+    }
 }

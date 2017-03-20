@@ -1,6 +1,9 @@
 import MyEJBclient.SpringBean.ProductBean;
 import MyEJBclient.connector.RemoteEJBClient;
 import MyRMI.RMInterface;
+import com.ncproject.webstore.ejb.CartBeanInterface;
+import com.ncproject.webstore.ejb.ProductBeanInterface;
+import com.ncproject.webstore.ejb.beans.CartBean;
 import com.ncproject.webstore.entity.Product;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
@@ -19,16 +22,24 @@ public class SampleController {
 
     @RequestMapping("/")
     @ResponseBody
-    String home() throws NamingException {
+    String home() throws NamingException, IllegalAccessException, InstantiationException {
 
         RemoteEJBClient remoteEJBClient = new RemoteEJBClient();
 
-        String s = remoteEJBClient.invokeStatelessBean();
-        List<Product> s2 = remoteEJBClient.getAllProducts();
+//        String s = remoteEJBClient.invokeStatelessBean();
+//        List<Product> s2 = remoteEJBClient.getAllProducts();
 
 //        ProductBean pb = ProductBean.class.newInstance();
+//        ProductBean bp = new ProductBean();
 
-        return "Hello World and " + s2.toString();
+        CartBeanInterface cbii = new CartBean();
+        CartBeanInterface cbi = RemoteEJBClient.getBeanInterface(cbii);
+
+        ProductBeanInterface pbi = new com.ncproject.webstore.ejb.beans.ProductBean();
+        ProductBeanInterface pbii = RemoteEJBClient.getBeanInterface(pbi);
+
+
+        return "Hello World and " + cbi.testRemote() + pbii.getAllProducts();
     }
 
     public static void main(String[] args) throws Exception {
