@@ -26,12 +26,8 @@ public class SampleController {
 
         RemoteEJBClient remoteEJBClient = new RemoteEJBClient();
 
-//        String s = remoteEJBClient.invokeStatelessBean();
-//        List<Product> s2 = remoteEJBClient.getAllProducts();
 
-//        ProductBean pb = ProductBean.class.newInstance();
-//        ProductBean bp = new ProductBean();
-
+        //вот так получать классы EJB
         CartBeanInterface cbii = new CartBean();
         CartBeanInterface cbi = RemoteEJBClient.getBeanInterface(cbii);
 
